@@ -154,7 +154,7 @@ def experimental_probability_error(x, m_l, m_j, b_l, b_j):
 
     def calc_d(vec, m, b, p): return (np.log(p) - np.log(np.sqrt(np.linalg.det(b))) -
                                    0.5 * np.matmul(np.matmul((vec - m), np.linalg.inv(b)), (vec - m).reshape(2, 1))
-                                   )  # page 29
+                                      )  # page 29
 
     for xi in x:
         d_l = calc_d(xi, m_l, b_l, 0.5)
