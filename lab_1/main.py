@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy
 
+
 M_0 = np.array([0, 1])
 M_1 = np.array([-1, -1])
 M_2 = np.array([2, 1])
@@ -11,6 +12,7 @@ B_0 = np.array([[0.35, 0.15], [0.1, 0.35]])
 B_1 = np.array([[0.45, 0.15], [0.15, 0.45]])
 B_2 = np.array([[0.15, 0.02], [0.02, 0.15]])
 B_3 = np.array([[0.25, -0.17], [-0.17, 0.25]])
+
 
 def get_errors_first(sample_1, sample_2, weights, wN):
     counter_0 = 0
@@ -28,6 +30,7 @@ def get_errors_first(sample_1, sample_2, weights, wN):
 
     print(f"Ошибка первого рода: {counter_0 / sample_1.shape[0]}")
     print(f"Ошибка второго рода: {counter_1 / sample_2.shape[0]}")
+
 
 def get_errors(sample_1, sample_2, W_POPOL):
     counter_0 = 0
@@ -47,8 +50,10 @@ def get_errors(sample_1, sample_2, W_POPOL):
     print(f"Ошибка первого рода: {counter_0 / sample_1.shape[0]}")
     print(f"Ошибка второго рода: {counter_1 / sample_2.shape[0]}")
 
+
 def Mahalanobis_distance(M0, M1, B):
     return (M1 - M0) @ np.linalg.inv(B) @ np.transpose(M1 - M0)
+
 
 def boundary_of_bayes_classifier_for_N_with_same_B(x, M_l, M_j, B, threshold):
     M_dif = M_l - M_j
@@ -64,6 +69,7 @@ def boundary_of_bayes_classifier_for_N_with_same_B(x, M_l, M_j, B, threshold):
     b = -0.5 * np.matmul(np.matmul(M_sum_T, B_inv), M_dif) + threshold  # page 31 случай 2
 
     return np.array((-b - a[0, 0] * x) / a[0, 1])
+
 
 def get_count_fail(x, M_l, M_j, B, threshold):
     M_dif = M_l - M_j
@@ -87,6 +93,7 @@ def get_count_fail(x, M_l, M_j, B, threshold):
 
     # print(counter)
     return counter / x.shape[0]
+
 
 def boundary_of_bayes_classifier_for_N(x, M_l, M_j, B_l, B_j, threshold):
     M_l_T = M_l.reshape(1, 2)
@@ -125,6 +132,7 @@ def boundary_of_bayes_classifier_for_N(x, M_l, M_j, B_l, B_j, threshold):
 
     return np.array(boundary)
 
+
 def get_erroneous_classification_probabilities(M_l, M_j, B):
     distance = Mahalanobis_distance(M_l, M_j, B)
     print(f"Расстояние Махаланобиса: {distance}")
@@ -134,6 +142,7 @@ def get_erroneous_classification_probabilities(M_l, M_j, B):
     print(f"Ошибка второго рода: {p_1}")
     # R = 1/2(p_0+p_1) = 1 - Ф(0.5*sqrt(distance))
     print(f"Суммарный вероятность ошибочной классификации: {p_0 + p_1}")
+
 
 def experimental_probability_error(x, M_l, M_j, B_l, B_j):
     count = 0
@@ -149,11 +158,14 @@ def experimental_probability_error(x, M_l, M_j, B_l, B_j):
 
     return count / x.shape[0]
 
+
 def get_eps(p, N):
     return np.sqrt((1 - p) / (N * p))
 
+
 def get_N(p, err):
     return (1 - p) / (err ** 2 * p)
+
 
 def task_1():
     # Data with same B
@@ -181,6 +193,7 @@ def task_1():
     print(f"Экспериментальная вероятность для БК {exper}")
 
     return x, y
+
 
 def task_2():
     # Data with same B
@@ -225,6 +238,7 @@ def task_2():
 
     return [(x, y_0), (x, y_1)]
 
+
 def task_3():
     sample_1 = np.load("Files/arrayX3_1.npy")
     sample_2 = np.load("Files/arrayX3_2.npy")
@@ -265,6 +279,7 @@ def task_3():
           f"получение оценок вероятностей ошибочной классификации"
           f"с погрешностью не более 5%: {n}")
 
+
 def plot_task3(x_1, y_1_1, y_1_2, y_1_3):
     sample_1 = np.transpose(np.load("Files/arrayX2_1.npy"))
     sample_2 = np.transpose(np.load("Files/arrayX2_2.npy"))
@@ -284,6 +299,7 @@ def plot_task3(x_1, y_1_1, y_1_2, y_1_3):
     ax[2].plot(x_1, y_1_3, color="red")
     plt.show()
 
+
 def show_all_borders(borders):
     sample_1 = np.load("Files/arrayX2_1.npy")
     sample_2 = np.load("Files/arrayX2_2.npy")
@@ -299,6 +315,7 @@ def show_all_borders(borders):
 
     plt.show()
 
+
 def main():
     x_0, y_0 = task_1()
     value = task_2()
@@ -310,6 +327,7 @@ def main():
     show_all_borders(borders)
 
     task_3()
+
 
 if __name__ == "__main__":
     main()
