@@ -152,7 +152,7 @@ def get_erroneous_classification_probabilities(m_l, m_j, b):
 def experimental_probability_error(x, m_l, m_j, b_l, b_j):
     count = 0
 
-    calc_d = lambda vec, m, b, p: (np.log(p) - np.log(np.sqrt(np.linalg.det(b))) -
+    def calc_d(vec, m, b, p): return (np.log(p) - np.log(np.sqrt(np.linalg.det(b))) -
                                    0.5 * np.matmul(np.matmul((vec - m), np.linalg.inv(b)), (vec - m).reshape(2, 1))
                                    )  # page 29
 
