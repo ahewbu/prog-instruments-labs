@@ -109,7 +109,8 @@ def boundary_of_bayes_classifier_for_n(x, m_l, m_j, b_l, b_j, threshold):
     # d_lj = ... = xTAx+bx+c=0
     a = 0.5 * (b_j_inv - b_l_inv)
     b = np.matmul(m_l_t, b_l_inv) - np.matmul(m_j_t, b_j_inv)
-    c = (0.5 * np.matmul(np.matmul(m_j_t, b_j_inv), m_j) - 0.5 * np.matmul(np.matmul(m_l_t, b_l_inv), M_l) + 0.5 * np.log(det_b_j / det_b_l) + threshold)  # конец 4 лекции
+    c = (0.5 * np.matmul(np.matmul(m_j_t, b_j_inv), m_j) - 0.5 * np.matmul(np.matmul(m_l_t, b_l_inv), M_l)
+         + 0.5 * np.log(det_b_j / det_b_l) + threshold)  # конец 4 лекции
 
     # print(f"A = {A}")
     # print(f"b = {b}")
@@ -151,7 +152,9 @@ def get_erroneous_classification_probabilities(m_l, m_j, b):
 def experimental_probability_error(x, m_l, m_j, b_l, b_j):
     count = 0
 
-    calc_d = lambda vec, m, b, p: (np.log(p) - np.log(np.sqrt(np.linalg.det(b))) - 0.5 * np.matmul(np.matmul((vec - m), np.linalg.inv(b)), (vec - m).reshape(2, 1)))  # page 29
+    calc_d = lambda vec, m, b, p: (np.log(p) - np.log(np.sqrt(np.linalg.det(b))) -
+                                   0.5 * np.matmul(np.matmul((vec - m), np.linalg.inv(b)), (vec - m).reshape(2, 1))
+                                   )  # page 29
 
     for xi in x:
         d_l = calc_d(xi, m_l, b_l, 0.5)
