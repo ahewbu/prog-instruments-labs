@@ -1,6 +1,6 @@
-path = "86.csv"
+VARIANT = 86
 
-regex_patterns = {
+REGEX_PATTERNS = {
     "telephone": "^\\+7\\-\\(\\d{3}\\)\\-\\d{3}\\-\\d{2}\\-\\d{2}$",
     "http_status_message": "^\\d{3} [A-Za-z ]+$",
     "inn": "^\\d{12}$",
