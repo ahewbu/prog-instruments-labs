@@ -48,11 +48,11 @@ def read_json(file: str):
         with open(file, "r", encoding="utf-8") as f:
             data = json.load(f)
     except FileNotFoundError:
-        print("File with settings not found")
-        return
+        logger.info("File with settings not found")
+        return "File with settings not found"
     except Exception as e:
-        print(f"Error reading file {str(e)}")
-        return
+        logger.info(f"Error reading file: {str(e)}")
+        return f"Error reading file: {str(e)}"
 
     text_1 = data.get("path_to_text_1")
     key_1 = data.get("path_to_key_1")
